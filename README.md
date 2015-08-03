@@ -1,2 +1,2 @@
-# wof_puzzle_board
+# Wof Puzzle Board
 Web functional Wheel of Fortune puzzle board.
