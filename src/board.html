@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Wheel of Fortune Puzzle Board</title>
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="css/board.css">
+	</head>
+
+	<body>
+		<div class="surround">
+			<table class="puz-board">
+				<tr data-row-num="1" class="puz-board-row">
+					<td class="corner"></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td class="corner"></td>
+				</tr>
+				<tr data-row-num="2" class="puz-board-row">
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr data-row-num="3" class="puz-board-row">
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>	
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr data-row-num="4" class="puz-board-row">
+					<td class="corner"></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td class="corner"></td>
+				</tr>
+			</table>
+		</div>
+
+		<div class="container">
+			<div class="board-ctrl">
+				<button>Make each cell light up</button>
+				<button>Add a letter to each cell</button>
+			</div>
+			<div class="input-test">
+				<label for="letter-input">Letter</label>
+				<input id="letter-input" type="text" maxlength="1" />
+				<label for="row-input">Row</label>
+				<input id="row-input" type="text" maxlength="2" />
+				<label for="col-input">Column</label>
+				<input id="col-input" type="text" maxlength="2" />
+				<input id="letter-submit" type="submit" value="Add letter" />
+			</div>
+		</div>
+		<script type="text/javascript" src="js/mootools.min.js"></script>
+		<script type="text/javascript" src="js/letter.js"></script>
+		<script type="text/javascript" src="js/puzzle_board.js"></script>
+	</body>
+</html>
