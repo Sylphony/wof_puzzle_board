@@ -1,0 +1,50 @@
+body {
+  background-color: rgba(180, 235, 235, 0.4);
+}
+
+.surround {
+  margin-top: 10px;
+  font-family: "Helvetica", san-serif;
+}
+
+/* Puzzle board styles */
+.puz-board {
+  border-spacing: 5px;
+  border-collapse: separate;
+  margin: 15px auto;
+  text-align: center;
+}
+
+.puz-board .puz-board-row td {
+  border: 7px solid #000;
+  background-color: #37dba9;
+  width: 60px;
+  min-width: 60px;
+  height: 74px;
+  min-height: 74px;
+  margin: 0 auto;
+  font-weight: bold;
+  font-size: 3em;
+}
+
+.puz-board .puz-board-row td.corner {
+  visibility: hidden;
+}
+
+.puz-board .puz-board-row td.active {
+  background-color: #FFF;
+}
+
+.puz-board .puz-board-row td.wait {
+  background-color: #00F;
+}
+
+.input-test {
+  margin: 20px auto;
+}
+
+.input-test .input-box {
+  width: 60px;
+  text-align: center;
+  margin-right: 10px;
+}

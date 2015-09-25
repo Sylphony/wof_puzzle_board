@@ -29,17 +29,24 @@ body {
 			&.corner {
 				visibility:hidden;
 			}
+			// White space for active
 			&.active {
 				background-color:#FFF;
+			}
+			// Blue before revealing letter
+			&.wait {
+				background-color:#00F;
 			}
 		}
 	}
 }
 
-
 .input-test {
 	margin:20px auto;
-	input[type="text"] {
-		width:30px;
+
+	.input-box {
+		width:60px;
+		text-align:center;
+		margin-right:10px;
 	}
 }

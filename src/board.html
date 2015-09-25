@@ -8,91 +8,97 @@
 
 	<body>
 		<div class="surround">
-			<table class="puz-board">
-				<tr data-row-num="1" class="puz-board-row">
-					<td class="corner"></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td class="corner"></td>
-				</tr>
-				<tr data-row-num="2" class="puz-board-row">
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-				<tr data-row-num="3" class="puz-board-row">
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>	
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-				<tr data-row-num="4" class="puz-board-row">
-					<td class="corner"></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td class="corner"></td>
-				</tr>
+			<table id="puz-board" class="puz-board">
+				<tbody>
+					<tr data-row-num="1" class="puz-board-row">
+						<td class="corner"></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td class="corner"></td>
+					</tr>
+					<tr data-row-num="2" class="puz-board-row">
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr data-row-num="3" class="puz-board-row">
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>	
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr data-row-num="4" class="puz-board-row">
+						<td class="corner"></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td class="corner"></td>
+					</tr>
+				</tbody>
 			</table>
 		</div>
 
 		<div class="container">
+			<!--
 			<div class="board-ctrl">
-				<button>Make each cell light up</button>
-				<button>Add a letter to each cell</button>
+				<button data-action="allCellLightUp">Make each cell light up</button>
+				<button data-action="">Add a letter to each cell</button>
 			</div>
+			-->
 			<div class="input-test">
-				<label for="letter-input">Letter</label>
-				<input id="letter-input" type="text" maxlength="1" />
-				<label for="row-input">Row</label>
-				<input id="row-input" type="text" maxlength="2" />
-				<label for="col-input">Column</label>
-				<input id="col-input" type="text" maxlength="2" />
-				<input id="letter-submit" type="submit" value="Add letter" />
+				<label>Letter
+					<input id="letter-input" class="input-box" type="text" maxlength="1">
+				</label>
+				<label>Row
+					<input id="row-input" class="input-box" type="text" maxlength="1">
+				</label>
+				<label>Column
+					<input id="col-input" class="input-box" type="text" maxlength="2">
+				</label>
+				<input data-action="displayLetter" id="display-letter" type="submit" value="Add letter">
 			</div>
 		</div>
 		<script type="text/javascript" src="js/mootools.min.js"></script>
-		<script type="text/javascript" src="js/letter.js"></script>
 		<script type="text/javascript" src="js/puzzle_board.js"></script>
 	</body>
 </html>

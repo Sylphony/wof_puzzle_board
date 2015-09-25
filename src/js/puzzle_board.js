@@ -1,85 +1,115 @@
 "use strict";
 
-// Cache object for DOM elements
-var CACHEeleObj = {
-	//puzBoard: $$(".puz-board")[0],
+// Global selector cache object
+var SelectorCache = {
+	add: function(selector, key) {
+		if (typeof(key) === "undefined" || typeof(key) === "") {
+			throw new Error("add(): Must specify key for selector.")
+		}
+		if (typeof(SelectorCache[key]) === "undefined") {
+			return SelectorCache[key] = selector;
+		}
+	},
+	get: function(key) {
+		if (typeof(SelectorCache[key]) !== "undefined") {
+			return SelectorCache[key];
+		}
+		else {
+			throw new Error("get(): Could not find selector to retrieve.")
+		}
+	},
+	update: function(selector, key) {
+		if (typeof(key) === "undefined" || typeof(key) === "") {
+			throw new Error("update(): Must specify key for selector.")
+		}
+		if (typeof(SelectorCache[key]) !== "undefined") {
+			return SelectorCache[key] = selector;
+		}
+		else {
+			throw new Error("update(): The key already has a different cached selector.");
+		}
+	}
 };
 
-/* Puzzle Board class */
+function initSelectorAdd() {
+	SelectorCache.add($$("#puz-board"), "$puz_board");
+	SelectorCache.add($$("#puz-board").getElements(".puz-board-row"), "$board_rows");
+}
+
+/* Letter (or symbol) class */
+var Letter = new Class({
+	initialize: function(letter, row, col) {
+		this.letter = letter;
+		this.row = row;
+		this.col = col;
+	}
+});
+
+/* Puzzle board class */
 var PuzzleBoard = new Class({
-	initialize: function(board) {
-		this.board = board; // Board itself
-		this.rows = board.rows; // Row elements
-		this.numCols = [];	// Number of columns, as an array
-		this.startCols = [];
+	initialize: function() {
+		this.numRow = 4;
+		this.numCol = 14;
+		this.numRowCells = [12, 14, 14, 12];
+		this.colStartPos = [2, 1, 1, 2];
 	}
 });
 
-/* Retreive methods */
 PuzzleBoard.implement({
-	// Gets the number of columns for each row
-	// @return arr: An array of column numbers
-	getNumCols: function() {
-		var arr = [];
-		var board = this.board;
-		for (var row_num=0; row_num < board.rows.length; row_num++) {
-			var row_cells = board.rows[row_num].children;
-			var length = row_cells.length;
-			for (var col_num=0; col_num < row_cells.length; col_num++) {
-				if (row_cells[col_num].hasClass("corner")) {
-					length = length - 1; // Remove the corners count
-				}
-			}
-			arr.push(length);
+	/* Get row from DOM.
+	 * @param row: Row number.
+	 * @return: The row (as an Elements instance).
+	 */
+	getRowDOM: function(row) {
+		if (row >= 1 && row <= this.numRow) {
+			return SelectorCache.get("$board_rows")[0]
+				.filter("[data-row-num='" + row + "']");
 		}
-		return arr;
 	},
 
-	// Gets the starting column of each row
-	// @return arr: An array of starting column values
-	getStartCols: function() {
-		var arr = [];
-		var board = this.board;
-		for (var row_num=0; row_num < board.rows.length; row_num++) {
-			var row_cells = board.rows[row_num].children;
-			var startCol = 1;
-			for (var col_num=0; col_num < row_cells.length; col_num++) {
-				if (!row_cells[col_num].hasClass("corner")) {
-					startCol = col_num + 1;	// 1-indexed for consistency
-					break;	
-				}
-			}
-			arr.push(startCol);
-		}
-		return arr;
-	},
-});
-
-/* Support methods */
-PuzzleBoard.implement({
-	// Display a letter on the board
-	displayLetter: function(Letter) {
-		var board = this.board;
-		
+	/* Get a cell on the board. 
+	 * @param letObj: Letter object.
+	 * @return: The cell (as an Elements instance).
+	 */
+	getCell: function(letObj) {
+		var trRow = this.getRowDOM(letObj.row);
+		return trRow.getChildren(":nth-child(" + letObj.col + ")")[0];
 	},
 
+	/* Display letter on board.
+	 * @param letObj: Letter object.
+	 * @return: The same Elements instance.
+	 */
+	displayLetter: function(letObj) {
+		var $the_cell = this.getCell(letObj);
 
-	// Clear the board
-	clearBoard: function(board) {
-		for (var row_num=0; row_num < board.rows.length; row_num++) {
+		this.displayBlueWait.call($the_cell);
+		setTimeout(function() {
+			$the_cell.set("text", letObj.letter).removeClass("wait").addClass("active");
+		}, 1500);
 
-		} 
+		return this;
+	},
+
+	/* Display the cell as a blue box (signal before revealing letter) */
+	displayBlueWait: function() {
+		this.addClass("wait");
 	}
-
 });
 
 
-window.addEvent("domready", function() {
-	var $$puz_board = $$(".puz-board");
-	$$puz_board.addClass("hello");
-	
-	var board_obj = new PuzzleBoard($$puz_board[0]);
-	board_obj.numCols = board_obj.getNumCols();
-	board_obj.startCols = board_obj.getStartCols();
-	//console.log(CacheObj.table);
-});
+function onPageLoad() {
+	var board = new PuzzleBoard();
+
+	$("display-letter").addEvent("click", function() {
+		var col = $("col-input").get("value");
+		var row = $("row-input").get("value");
+		var letter = $("letter-input").get("value");
+
+		var theLetter = new Letter(letter, row, col);
+		board.displayLetter(theLetter);
+	});
+}
+
+window.addEvent("domready", initSelectorAdd);
+window.onload = onPageLoad;
